@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.onnx
 
 import data
-from utils import get_device, repackage_hidden
+from utils import get_device, repackage_hidden, make_reproducible
 from rnnlm import RNNModel
 
 
@@ -209,7 +209,7 @@ def test_model(corpus, args, model, criterion):  # Load the best saved model.
 
 if __name__ == "__main__":
     args = parse_args()
-    torch.manual_seed(args.seed)
+    make_reproducible(args.seed)
     device = get_device()
     corpus = data.Corpus(args.data)
     eval_batch_size = 10
